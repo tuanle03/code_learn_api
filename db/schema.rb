@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_11_195359) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_11_200454) do
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "linked_object_id"
@@ -33,6 +33,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_195359) do
     t.integer "user_id"
     t.integer "post_id"
     t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.integer "following_user_id"
+    t.integer "followed_user_id"
+    t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
