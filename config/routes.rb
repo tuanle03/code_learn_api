@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :posts
   resources :feedbacks
+  resources :comments
 end
