@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_11_193820) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_11_195359) do
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "linked_object_id"
@@ -43,6 +43,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_193820) do
     t.text "body"
     t.string "status"
     t.integer "total_view"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "linked_object_id"
+    t.string "linked_object_type"
+    t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
