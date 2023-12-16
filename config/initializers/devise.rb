@@ -16,6 +16,14 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '8d60f8b304bf1c82db63b6edf2e8b1a69568f1c55699e471df807605bbb8c9cfdf00836cccd21e2afb8d6625498459af3642129e3e872b9c95d9cbacaa993b1c'
 
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.credentials.devise_jwt_secret_key!
+    jwt.dispatch_requests = [
+      ['POST', %r{^/api/login$}] # Thay đổi đường dẫn và phương thức HTTP tương ứng với API của bạn
+    ]
+    jwt.expiration_time = 1.day.to_i
+  end
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
