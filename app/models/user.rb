@@ -7,6 +7,6 @@ class User < ApplicationRecord
 
   def generate_jwt
     payload = { user_id: id, exp: 1.day.from_now.to_i }
-    JWT::Encoder.encode(payload, Rails.application.credentials.devise_jwt_secret_key)
+    JWT.encode(payload, Rails.application.credentials.devise_jwt_secret_key, 'HS256')
   end
 end
