@@ -1,6 +1,6 @@
 module API
   class Web::SessionsAPI < Grape::API
-    namespace :session do
+    namespace :sessions do
       desc 'Sign in and retrieve JWT token'
       params do
         requires :email, type: String, desc: 'User email'
