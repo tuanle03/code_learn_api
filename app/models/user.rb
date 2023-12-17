@@ -7,6 +7,9 @@ class User < ApplicationRecord
     :recoverable, :rememberable, :validatable,
     :jwt_authenticatable, jwt_revocation_strategy: self
 
+  has_many :posts, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
+
   def generate_jwt
     payload = { user_id: id, exp: 1.day.from_now.to_i }
     JWT.encode(payload, Rails.application.credentials.devise_jwt_secret_key)
