@@ -4,12 +4,14 @@ module API
       desc 'Create feedback'
       params do
         requires :content, type: String
-        requires :user_id, type: Integer
+        requires :post_id, type: Integer
       end
       post do
+        authenticate_user!
         Feedback.create!({
           content: params[:content],
-          user_id: params[:user_id]
+          user_id: current_user.id,
+          post_id: params[:post_id]
         })
       end
 

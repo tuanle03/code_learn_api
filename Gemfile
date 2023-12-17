@@ -54,6 +54,8 @@ gem 'grape-swagger'
 
 gem 'grape_logging'
 
+gem 'faker'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

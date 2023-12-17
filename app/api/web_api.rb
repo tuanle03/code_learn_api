@@ -1,6 +1,11 @@
 class WebAPI < Grape::API
+  format :json
+  prefix 'web'
+
+  helpers ::Helpers::AuthenticationHelper
 
   mount Web::FeedbacksAPI
+  mount Web::SessionsAPI
 
   add_swagger_documentation(
     format: :json,
