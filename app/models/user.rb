@@ -29,4 +29,12 @@ class User < ApplicationRecord
   def jwt_revoked?(token)
     revoked_tokens.include?(token)
   end
+
+  def admin?
+    role == 'admin'
+  end
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end
