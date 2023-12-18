@@ -4,21 +4,14 @@ require 'appsignal/integrations/grape'
 require 'grape-swagger'
 require 'grape_logging'
 
-# Grape::Validations.register_validator('length', Validators::LengthValidator)
-# Grape::Validations.register_validator('numeric', Validators::NumericValidator)
-# Grape::Validations.register_validator('gte_date', Validators::GteDateValidator)
-
-# All the API module are defined in this file.
 class ApplicationAPI < Grape::API
   format :json
-  # error_formatter :json
-  # formatter :json, JsonFormatter
-  # default_error_formatter :json
 
   helpers ::Helpers::AuthenticationHelper
-
-  before do
-    process_token
+  helpers do
+    def unauthorized_error!
+      error!('Unauthorized', 401)
+    end
   end
 
   rescue_from Grape::Exceptions::ValidationErrors do |e|

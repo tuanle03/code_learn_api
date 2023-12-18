@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_16_133434) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_17_024617) do
+  create_table "allowlisted_jwts", force: :cascade do |t|
+    t.string "jti", null: false
+    t.string "aud"
+    t.datetime "exp", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["jti"], name: "index_allowlisted_jwts_on_jti", unique: true
+    t.index ["user_id"], name: "index_allowlisted_jwts_on_user_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "linked_object_id"
@@ -79,4 +90,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_16_133434) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "allowlisted_jwts", "users", on_delete: :cascade
 end
