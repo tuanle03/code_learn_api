@@ -13,10 +13,14 @@ describe Web do
   let(:user) { create(:user) }
   let(:token) { user.generate_jwt }
 
+  before do
+    create(:post, :approved, user: user)
+  end
+
   describe 'POST /web/feedbacks' do
     context 'with valid parameters' do
       it 'creates a feedback' do
-        post '/web/feedbacks', { content: 'Great post!', post_id: 1 }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        post '/web/feedbacks', { content: 'Feedback content', post_id: 1 }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)

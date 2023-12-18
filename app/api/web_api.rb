@@ -5,6 +5,7 @@ class WebAPI < Grape::API
   helpers ::Helpers::AuthenticationHelper
 
   mount Web::FeedbacksAPI
+  mount Web::PostsAPI
   mount Web::SessionsAPI
   mount Web::RegistrationsAPI
 
