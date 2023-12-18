@@ -57,7 +57,7 @@ This project uses JSON Web Tokens (JWT) for user authentication. Make sure to in
    ```
 
 ## Swagger Documentation
-Explore the API endpoints and test them using the Swagger documentation at `http://localhost:3000/doc`.
+Explore the API endpoints and test them using the Swagger documentation at `http://localhost:2106/api/web/doc`.
 
 ## Contributing
 We welcome contributions! If you find a bug or have an enhancement in mind, please open an issue or submit a pull request.
