@@ -6,6 +6,7 @@ class WebAPI < Grape::API
 
   mount Web::FeedbacksAPI
   mount Web::SessionsAPI
+  mount Web::RegistrationsAPI
 
   add_swagger_documentation(
     format: :json,
