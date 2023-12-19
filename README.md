@@ -1,6 +1,6 @@
-# Awesome Blog API
+# CodeLearn API
 
-Welcome to the Awesome Blog API repository! This project is built using Ruby on Rails, Grape API, JWT (JSON Web Tokens), and Swagger. It provides a robust backend for a web blog application, allowing you to create, retrieve, update, and delete blog posts, comments, and more through a RESTful API.
+Welcome to the CodeLearn API repository! This project is built using Ruby on Rails, Grape API, JWT (JSON Web Tokens), and Swagger. It provides a robust backend for a web blog application, allowing you to create, retrieve, update, and delete blog posts, comments, and more through a RESTful API.
 
 ## Table of Contents
 
@@ -57,7 +57,7 @@ This project uses JSON Web Tokens (JWT) for user authentication. Make sure to in
    ```
 
 ## Swagger Documentation
-Explore the API endpoints and test them using the Swagger documentation at `http://localhost:3000/doc`.
+Explore the API endpoints and test them using the Swagger documentation at `http://localhost:2106/api/web/doc`.
 
 ## Contributing
 We welcome contributions! If you find a bug or have an enhancement in mind, please open an issue or submit a pull request.
