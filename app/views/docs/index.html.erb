@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Docs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.1.1/swagger-ui.css">
+  </head>
+
+  <body>
+    <div id="ui-wrapper-new" data-spec="/api/web/doc.json">
+      Loading....
+    </div>
+  </body>
+  <script src="https://unpkg.com/swagger-ui-dist@5.1.1/swagger-ui-bundle.js"></script>
+  <script>
+    var swaggerUIOptions = {
+      url: '/api/web/doc.json',
+      dom_id: '#ui-wrapper-new',
+      docExpansion: 'list',
+      deepLinking: true,
+      filter: true,
+      presets: [
+        SwaggerUIBundle.presets.apis,
+        SwaggerUIBundle.SwaggerUIStandalonePreset
+      ],
+      plugins: [
+        SwaggerUIBundle.plugins.DownloadUrl
+      ],
+      requestInterceptor: function (request) {
+        request.headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+        request.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+        return request;
+      },
+    }
+
+    var ui = SwaggerUIBundle(swaggerUIOptions)
+
+    window.ui = ui
+  </script>
+
+</html>

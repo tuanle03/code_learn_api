@@ -4,5 +4,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  get '/docs', to: 'docs#index'
+
   mount ApplicationAPI => '/api'
 end
