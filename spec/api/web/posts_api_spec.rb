@@ -228,4 +228,29 @@ describe Web do
       end
     end
   end
+
+  describe 'POST /web/posts/:id/feedbacks' do
+    before do
+      create(:post, status: 'approved', user: user)
+    end
+
+    context 'with valid parameters' do
+      it 'creates a feedback' do
+        post "/web/posts/1/feedbacks", { content: 'Lorem ipsum' }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+
+        expect(last_response.status).to eq(200)
+        json = JSON.parse(last_response.body)
+        expect(json['success']).to eq(true)
+        expect(json['message']).to eq('Feedback created successfully')
+      end
+    end
+
+    context 'with invalid parameters' do
+      it 'returns an error message' do
+        post "/web/posts/1/feedbacks", { content: '' }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+
+        expect(last_response.status).to eq(400)
+      end
+    end
+  end
 end
