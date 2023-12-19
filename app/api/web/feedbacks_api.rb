@@ -1,6 +1,8 @@
 module API
   class Web::FeedbacksAPI < Grape::API
+
     resource :feedbacks do
+
       desc 'Create feedback'
       params do
         requires :content, type: String, allow_blank: false

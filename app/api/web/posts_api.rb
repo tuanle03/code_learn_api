@@ -221,6 +221,34 @@ module AP
           end
         }
       end
+
+      desc 'Create a feedback for a post'
+      params do
+        requires :id, type: Integer, desc: 'Post id'
+        requires :content, type: String, desc: 'Feedback content', allow_blank: false
+      end
+      post '/:id/feedbacks' do
+        authenticate_user!
+        post = Post.find_by(id: params[:id])
+        return status 400 unless post
+        feedback = post.feedbacks.new({
+          user_id: current_user.id,
+          content: params[:content]
+        })
+        if feedback.save
+          status 200
+          {
+            success: true,
+            message: 'Feedback created successfully'
+          }
+        else
+          status 400
+          {
+            success: false,
+            error: 'Feedback cannot be created'
+          }
+        end
+      end
     end
   end
 end
