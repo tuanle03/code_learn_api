@@ -3,15 +3,15 @@
 
   <head>
     <title>Docs</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.17.0/swagger-ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.1.1/swagger-ui.css">
   </head>
 
   <body>
-    <div id="ui-wrapper-new" data-spec="<%= @swagger_json_path %>">
+    <div id="ui-wrapper-new" data-spec="/api/web/doc.json">
       Loading....
     </div>
   </body>
-  <script src="https://unpkg.com/swagger-ui-dist@3.23.1/swagger-ui-bundle.js"></script>
+  <script src="https://unpkg.com/swagger-ui-dist@5.1.1/swagger-ui-bundle.js"></script>
   <script>
     var swaggerUIOptions = {
       url: '/api/web/doc.json',
