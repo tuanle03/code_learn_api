@@ -24,10 +24,11 @@ module API
         end
       end
 
-      desc 'Sign out and revoke JWT token'
+      desc 'Sign out and revoke JWT token',
+        security: [access_token: {}]
       delete 'sign_out' do
         authenticate_user!
-        current_user.revoke_jwt(request.headers['Authorization'])
+        current_user.revoke_jwt(request.headers['token'])
         status 200
         {
           success: true,

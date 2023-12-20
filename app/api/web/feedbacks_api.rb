@@ -3,7 +3,8 @@ module API
 
     resource :feedbacks do
 
-      desc 'Create feedback'
+      desc 'Create feedback',
+        security: [access_token: {}]
       params do
         requires :content, type: String, allow_blank: false
         requires :post_id, type: Integer
@@ -47,7 +48,8 @@ module API
         end
       end
 
-      desc 'Delete feedback'
+      desc 'Delete feedback',
+        security: [access_token: {}]
       params do
         requires :id, type: Integer
       end
@@ -70,7 +72,8 @@ module API
         end
       end
 
-      desc 'Update feedback'
+      desc 'Update feedback',
+        security: [access_token: {}]
       params do
         requires :id, type: Integer
         requires :new_content, type: String, allow_blank: false

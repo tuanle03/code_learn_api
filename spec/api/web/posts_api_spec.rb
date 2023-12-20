@@ -20,7 +20,7 @@ describe Web do
       it 'returns a list of posts' do
         create_list(:post, 5, status: 'approved', user: user)
 
-        get '/web/posts', { limit: 3 }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        get '/web/posts', { limit: 3 }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -35,7 +35,7 @@ describe Web do
       it 'returns a list of newest posts' do
         create_list(:post, 5, status: 'approved', user: user)
 
-        get '/web/posts/newest', { limit: 3 }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        get '/web/posts/newest', { limit: 3 }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -50,7 +50,7 @@ describe Web do
       it 'returns a list of most viewed posts' do
         create_list(:post, 5, status: 'approved', user: user)
 
-        get '/web/posts/most_viewed', { limit: 3 }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        get '/web/posts/most_viewed', { limit: 3 }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -65,7 +65,7 @@ describe Web do
 
     context 'with a valid post ID' do
       it 'returns the details of the post' do
-        get "/web/posts/#{post.id}", {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        get "/web/posts/#{post.id}", {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -76,7 +76,7 @@ describe Web do
 
     context 'with an invalid post ID' do
       it 'returns an error message' do
-        get '/web/posts/999', {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        get '/web/posts/999', {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
         json = JSON.parse(last_response.body)
@@ -89,7 +89,7 @@ describe Web do
   describe 'POST /web/posts' do
     context 'with valid parameters' do
       it 'creates a post' do
-        post '/web/posts', { title: 'New Post', body: 'Lorem ipsum' }, 'HTTP_AUTHORIZATION' => "Bearer #{admin_token}"
+        post '/web/posts', { title: 'New Post', body: 'Lorem ipsum' }, 'HTTP_TOKEN' => admin_token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -100,7 +100,7 @@ describe Web do
 
     context 'with invalid parameters' do
       it 'returns an error message' do
-        post '/web/posts', { title: '', body: '' }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        post '/web/posts', { title: '', body: '' }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
       end
@@ -112,7 +112,7 @@ describe Web do
 
     context 'with valid parameters' do
       it 'updates the post' do
-        put "/web/posts/#{post.id}", { new_title: 'Updated Title', new_body: 'Updated Body' }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        put "/web/posts/#{post.id}", { new_title: 'Updated Title', new_body: 'Updated Body' }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -123,7 +123,7 @@ describe Web do
 
     context 'with invalid parameters' do
       it 'returns an error message' do
-        put "/web/posts/#{post.id}", { new_title: '', new_body: '' }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        put "/web/posts/#{post.id}", { new_title: '', new_body: '' }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -138,7 +138,7 @@ describe Web do
 
     context 'with valid parameters' do
       it 'deletes the post' do
-        delete "/web/posts/#{post.id}", {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        delete "/web/posts/#{post.id}", {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -149,7 +149,7 @@ describe Web do
 
     context 'with invalid parameters' do
       it 'returns an error message' do
-        delete '/web/posts/999', {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        delete '/web/posts/999', {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
         json = JSON.parse(last_response.body)
@@ -166,7 +166,7 @@ describe Web do
 
     context 'with a valid user ID' do
       it 'returns a list of posts by user' do
-        get "/web/posts/user/#{user.id}", {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        get "/web/posts/user/#{user.id}", {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -181,7 +181,7 @@ describe Web do
 
     context 'as an admin user' do
       it 'approves the post' do
-        put "/web/posts/approve/#{post_to_approve.id}", {}, 'HTTP_AUTHORIZATION' => "Bearer #{admin_token}"
+        put "/web/posts/approve/#{post_to_approve.id}", {}, 'HTTP_TOKEN' => admin_token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -192,7 +192,7 @@ describe Web do
 
     context 'as a regular user' do
       it 'returns an unauthorized response' do
-        put "/web/posts/approve/#{post_to_approve.id}", {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        put "/web/posts/approve/#{post_to_approve.id}", {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
         json = JSON.parse(last_response.body)
@@ -211,7 +211,7 @@ describe Web do
 
     context 'with a valid post ID' do
       it 'returns a list of feedbacks' do
-        get "/web/posts/#{post.id}/feedbacks", {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        get "/web/posts/#{post.id}/feedbacks", {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -222,7 +222,7 @@ describe Web do
 
     context 'with an invalid post ID' do
       it 'returns an error message' do
-        get '/web/posts/999/feedbacks', {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        get '/web/posts/999/feedbacks', {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
       end
@@ -236,7 +236,7 @@ describe Web do
 
     context 'with valid parameters' do
       it 'creates a feedback' do
-        post "/web/posts/1/feedbacks", { content: 'Lorem ipsum' }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        post "/web/posts/1/feedbacks", { content: 'Lorem ipsum' }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -247,7 +247,7 @@ describe Web do
 
     context 'with invalid parameters' do
       it 'returns an error message' do
-        post "/web/posts/1/feedbacks", { content: '' }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        post "/web/posts/1/feedbacks", { content: '' }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
       end

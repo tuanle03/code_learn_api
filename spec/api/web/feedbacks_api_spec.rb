@@ -20,7 +20,7 @@ describe Web do
   describe 'POST /web/feedbacks' do
     context 'with valid parameters' do
       it 'creates a feedback' do
-        post '/web/feedbacks', { content: 'Feedback content', post_id: 1 }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        post '/web/feedbacks', { content: 'Feedback content', post_id: 1 }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -31,7 +31,7 @@ describe Web do
 
     context 'with invalid parameters' do
       it 'returns an error message' do
-        post '/web/feedbacks', { content: '', post_id: 1 }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        post '/web/feedbacks', { content: '', post_id: 1 }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
       end
@@ -43,7 +43,7 @@ describe Web do
 
     context 'with a valid feedback ID' do
       it 'returns the details of the feedback' do
-        get "/web/feedbacks/#{feedback.id}", {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        get "/web/feedbacks/#{feedback.id}", {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -54,7 +54,7 @@ describe Web do
 
     context 'with an invalid feedback ID' do
       it 'returns an error message' do
-        get '/web/feedbacks/999', {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        get '/web/feedbacks/999', {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
         json = JSON.parse(last_response.body)
@@ -69,7 +69,7 @@ describe Web do
 
     context 'with a valid feedback ID' do
       it 'deletes the feedback' do
-        delete "/web/feedbacks/#{feedback.id}", {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        delete "/web/feedbacks/#{feedback.id}", {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -80,7 +80,7 @@ describe Web do
 
     context 'with an invalid feedback ID' do
       it 'returns an error message' do
-        delete '/web/feedbacks/999', {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        delete '/web/feedbacks/999', {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
       end
@@ -92,7 +92,7 @@ describe Web do
 
     context 'with valid parameters' do
       it 'updates the feedback' do
-        put "/web/feedbacks/#{feedback.id}", { new_content: 'Updated content' }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        put "/web/feedbacks/#{feedback.id}", { new_content: 'Updated content' }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -103,7 +103,7 @@ describe Web do
 
     context 'with invalid parameters' do
       it 'returns an error message' do
-        put "/web/feedbacks/#{feedback.id}", { new_content: '' }, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        put "/web/feedbacks/#{feedback.id}", { new_content: '' }, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
       end

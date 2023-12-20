@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get '/docs', to: 'docs#index'
 
   mount ApplicationAPI => '/api'
+  mount Blazer::Engine => '/mio'
 end

@@ -42,7 +42,7 @@ describe Web do
 
     context 'with a valid token' do
       it 'returns a success response' do
-        delete '/web/sessions/sign_out', {}, 'HTTP_AUTHORIZATION' => "Bearer #{token}"
+        delete '/web/sessions/sign_out', {}, 'HTTP_TOKEN' => token
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
         expect(json['success']).to eq(true)
@@ -51,7 +51,7 @@ describe Web do
 
     context 'with an invalid token' do
       it 'returns an unauthorized response' do
-        delete '/web/sessions/sign_out', {}, 'HTTP_AUTHORIZATION' => 'Bearer invalid_token'
+        delete '/web/sessions/sign_out', {}, 'HTTP_TOKEN' => 'invalid_token'
         expect(last_response.status).to eq(401)
       end
     end
