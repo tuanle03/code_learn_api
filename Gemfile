@@ -62,6 +62,8 @@ gem 'blazer'
 
 gem 'rack-cors'
 
+gem 'friendly_id'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

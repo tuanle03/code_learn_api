@@ -9,20 +9,4 @@ class Comment < ApplicationRecord
 
   scope :approved, -> { where(status: 'approved') }
 
-  def self.create_comment(user, linked_object, body)
-    comment = Comment.new
-    comment.user = user
-    comment.linked_object = linked_object
-    comment.body = body
-    comment.save
-    comment
-  end
-
-  def self.delete_comment(user, comment)
-    if user == comment.user
-      comment.destroy
-      return true
-    end
-    false
-  end
 end
