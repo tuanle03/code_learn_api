@@ -6,6 +6,7 @@ class WebAPI < Grape::API
 
   mount Web::SessionsAPI
   mount Web::RegistrationsAPI
+  mount Web::UsersAPI
   mount Web::FeedbacksAPI
   mount Web::DiscussionsAPI
   mount Web::PostsAPI
