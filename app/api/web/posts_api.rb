@@ -5,6 +5,7 @@ module AP
       def format_post(post)
         {
           id: post.id,
+          slug: post.slug,
           title: post.title,
           body: post.body,
           total_view: post.total_view,
@@ -57,10 +58,10 @@ module AP
 
       desc 'Get a post'
       params do
-        requires :id, type: Integer, desc: 'Post id'
+        requires :id, type: String, desc: 'Post id/Post slug'
       end
       get ':id' do
-        post = Post.find_by(id: params[:id])
+        post = Post.friendly.find_by(id: params[:id]) || Post.friendly.find_by(slug: params[:id])
         if post
           post.update(total_view: post.total_view + 1)
           status 200
@@ -112,13 +113,19 @@ module AP
       desc 'Update a post',
         security: [access_token: {}]
       params do
-        requires :id, type: Integer, desc: 'Post id'
+        requires :id, type: String, desc: 'Post id/Post slug'
         optional :new_title, type: String, desc: 'New post title'
         optional :new_body, type: String, desc: 'New post body'
       end
       put ':id' do
         authenticate_user!
-        post = current_user.posts.find_by(id: params[:id])
+
+        if current_user.admin?
+          post = Post.friendly.find_by(id: params[:id]) || Post.friendly.find_by(slug: params[:id])
+        else
+          post = current_user.posts.friendly.find_by(id: params[:id]) || current_user.posts.friendly.find_by(slug: params[:id])
+        end
+
         if post
           post.update({
             title: params[:new_title],
@@ -133,7 +140,33 @@ module AP
           status 400
           {
             success: false,
-            error: 'Post cannot be updated'
+            error: 'You are not authorized'
+          }
+        end
+      end
+
+      desc 'Reject a post',
+        security: [access_token: {}]
+      params do
+        requires :id, type: String, desc: 'Post :id/:slug'
+      end
+      put '/:id/reject' do
+        authenticate_user!
+
+        post = current_user.posts.friendly.find_by(id: params[:id]) || current_user.posts.friendly.find_by(slug: params[:id])
+
+        if post
+          post.update(status: 'rejected')
+          status 200
+          {
+            success: true,
+            message: 'Post rejected successfully'
+          }
+        else
+          status 400
+          {
+            success: false,
+            error: 'Post cannot be rejected'
           }
         end
       end
@@ -141,18 +174,18 @@ module AP
       desc 'Delete a post',
         security: [access_token: {}]
       params do
-        requires :id, type: Integer, desc: 'Post id'
+        requires :id, type: String, desc: 'Post :id/:slug'
       end
       delete ':id' do
         authenticate_user!
+
         if current_user.admin?
-          post = Post.find_by(id: params[:id])
+          post = Post.friendly.find_by(id: params[:id]) || Post.friendly.find_by(slug: params[:id])
         else
-          post = current_user.posts.find_by(id: params[:id])
+          return error!('You are not authorized', 400)
         end
 
-        if post
-          post.update(status: 'deleted')
+        if post.destroy
           status 200
           {
             success: true,
@@ -182,12 +215,14 @@ module AP
       desc 'Approve a post',
         security: [access_token: {}]
       params do
-        requires :id, type: Integer, desc: 'Post id'
+        requires :id, type: String, desc: 'Post :id/:slug'
       end
-      put '/approve/:id' do
+      put '/:id/approve' do
         authenticate_user!
+
         if current_user.admin?
-          post = Post.find_by(id: params[:id])
+          post = Post.friendly.find_by(id: params[:id]) || Post.friendly.find_by(slug: params[:id])
+
           if post
             post.update(status: 'approved')
             status 200
@@ -196,6 +231,7 @@ module AP
               message: 'Post approved successfully'
             }
           end
+
         else
           status 400
           {
@@ -207,11 +243,17 @@ module AP
 
       desc 'Get a list feedbacks of a post'
       params do
-        requires :id, type: Integer, desc: 'Post id'
+        requires :id, type: String, desc: 'Post :id/:slug'
       end
       get '/:id/feedbacks' do
-        feedbacks = Post.find_by(id: params[:id])&.feedbacks
-        return status 400 unless feedbacks
+        post = Post.friendly.find_by(id: params[:id]) || Post.friendly.find_by(slug: params[:id])
+
+        if post
+          feedbacks = post.feedbacks
+        else
+          return error!('Post not found', 400)
+        end
+
         status 200
         {
           success: true,
@@ -230,13 +272,13 @@ module AP
       desc 'Create a feedback for a post',
         security: [access_token: {}]
       params do
-        requires :id, type: Integer, desc: 'Post id'
+        requires :id, type: String, desc: 'Post :id/:slug'
         requires :content, type: String, desc: 'Feedback content', allow_blank: false
       end
       post '/:id/feedbacks' do
         authenticate_user!
-        post = Post.find_by(id: params[:id])
-        return status 400 unless post
+        post = Post.friendly.find_by(id: params[:id]) || Post.friendly.find_by(slug: params[:id])
+        return error!('Post not found', 400) unless post
         feedback = post.feedbacks.new({
           user_id: current_user.id,
           content: params[:content]

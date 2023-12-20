@@ -136,9 +136,9 @@ describe Web do
   describe 'DELETE /web/posts/:id' do
     let(:post) { create(:post, user: user) }
 
-    context 'with valid parameters' do
+    context 'with admin and valid parameters' do
       it 'deletes the post' do
-        delete "/web/posts/#{post.id}", {}, 'HTTP_TOKEN' => token
+        delete "/web/posts/#{post.id}", {}, 'HTTP_TOKEN' => admin_token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -147,14 +147,23 @@ describe Web do
       end
     end
 
-    context 'with invalid parameters' do
+    context 'with user and invalid parameters' do
       it 'returns an error message' do
         delete '/web/posts/999', {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
         json = JSON.parse(last_response.body)
-        expect(json['success']).to eq(false)
-        expect(json['error']).to eq('Post cannot be deleted')
+        expect(json['error']).to eq('You are not authorized')
+      end
+    end
+
+    context 'with user and valid parameters' do
+      it 'returns an error message' do
+        delete "/web/posts/#{post.id}", {}, 'HTTP_TOKEN' => token
+
+        expect(last_response.status).to eq(400)
+        json = JSON.parse(last_response.body)
+        expect(json['error']).to eq('You are not authorized')
       end
     end
   end
@@ -181,7 +190,7 @@ describe Web do
 
     context 'as an admin user' do
       it 'approves the post' do
-        put "/web/posts/approve/#{post_to_approve.id}", {}, 'HTTP_TOKEN' => admin_token
+        put "/web/posts/#{post_to_approve.id}/approve", {}, 'HTTP_TOKEN' => admin_token
 
         expect(last_response.status).to eq(200)
         json = JSON.parse(last_response.body)
@@ -192,7 +201,7 @@ describe Web do
 
     context 'as a regular user' do
       it 'returns an unauthorized response' do
-        put "/web/posts/approve/#{post_to_approve.id}", {}, 'HTTP_TOKEN' => token
+        put "/web/posts/#{post_to_approve.id}/approve", {}, 'HTTP_TOKEN' => token
 
         expect(last_response.status).to eq(400)
         json = JSON.parse(last_response.body)
