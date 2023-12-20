@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :feedbacks, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :discussions, dependent: :destroy
 
   def generate_jwt
     payload = { user_id: id, exp: 1.day.from_now.to_i }
