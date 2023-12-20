@@ -90,4 +90,11 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.middleware.insert_before(0, Rack::Cors) do
+    allow do
+      origins 'https://codelearn-api-72b30d70ca73.herokuapp.com/'
+      resource '*', headers: :any, methods: %i[get post patch put delete options]
+    end
+  end
 end
