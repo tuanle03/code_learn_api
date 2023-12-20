@@ -135,6 +135,8 @@ GEM
       railties (>= 5.0.0)
     faker (3.2.2)
       i18n (>= 1.8.11, < 2)
+    friendly_id (5.5.1)
+      activerecord (>= 4.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     grape (2.0.0)
@@ -329,6 +331,7 @@ DEPENDENCIES
   devise-jwt
   factory_bot_rails
   faker
+  friendly_id
   grape
   grape-swagger
   grape_logging

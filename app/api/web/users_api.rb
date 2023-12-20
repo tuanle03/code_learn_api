@@ -32,6 +32,7 @@ module API
             {
               id: post.id,
               title: post.title,
+              slug: post.slug,
               total_views: post.total_view,
               created_at: post.created_at.to_fs(:ymd_hms),
             }
