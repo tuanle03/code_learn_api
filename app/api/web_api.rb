@@ -20,6 +20,13 @@ class WebAPI < Grape::API
     info: {
       title: 'CodeLearn APIs Documentation',
       description: 'This is a documentation of CodeLearn APIs. To support client rendering the UI',
-    }
+    },
+    security_definitions: {
+      access_token: {
+        name: 'token',
+        type: :apiKey,
+        in: :header,
+      },
+    },
   )
 end

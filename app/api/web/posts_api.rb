@@ -77,7 +77,8 @@ module AP
         end
       end
 
-      desc 'Create a post'
+      desc 'Create a post',
+        security: [access_token: {}]
       params do
         requires :title, type: String, desc: 'Post title', allow_blank: false
         requires :body, type: String, desc: 'Post body', allow_blank: false
@@ -88,6 +89,7 @@ module AP
           post = current_user.posts.new({
             title: params[:title],
             body: params[:body],
+            total_view: 0,
             status: 'approved'
           })
         end
@@ -107,7 +109,8 @@ module AP
         end
       end
 
-      desc 'Update a post'
+      desc 'Update a post',
+        security: [access_token: {}]
       params do
         requires :id, type: Integer, desc: 'Post id'
         optional :new_title, type: String, desc: 'New post title'
@@ -135,7 +138,8 @@ module AP
         end
       end
 
-      desc 'Delete a post'
+      desc 'Delete a post',
+        security: [access_token: {}]
       params do
         requires :id, type: Integer, desc: 'Post id'
       end
@@ -175,7 +179,8 @@ module AP
         }
       end
 
-      desc 'Approve a post'
+      desc 'Approve a post',
+        security: [access_token: {}]
       params do
         requires :id, type: Integer, desc: 'Post id'
       end
@@ -222,7 +227,8 @@ module AP
         }
       end
 
-      desc 'Create a feedback for a post'
+      desc 'Create a feedback for a post',
+        security: [access_token: {}]
       params do
         requires :id, type: Integer, desc: 'Post id'
         requires :content, type: String, desc: 'Feedback content', allow_blank: false

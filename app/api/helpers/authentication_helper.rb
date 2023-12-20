@@ -8,7 +8,7 @@ module Helpers::AuthenticationHelper
   def current_user
     @current_user ||=
       begin
-        token = request.headers['Authorization'].split(' ').last
+        token = request.headers['Token']
         User.find_by(id: JWT.decode(token, Rails.application.credentials.devise_jwt_secret_key)[0]['user_id']) if token
       rescue JWT::DecodeError
         nil

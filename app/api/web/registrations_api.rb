@@ -4,6 +4,8 @@ module API
       desc 'Create a new user'
       params do
         requires :user, type: Hash do
+          optional :first_name, type: String, desc: 'First name'
+          optional :last_name, type: String, desc: 'Last name'
           requires :email, type: String, desc: 'Email'
           requires :password, type: String, desc: 'Password'
           requires :password_confirmation, type: String, desc: 'Password confirmation'
