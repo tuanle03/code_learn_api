@@ -23,5 +23,10 @@ module CodeLearnApi
 
     # config.eager_load_paths << Rails.root.join("extras")
     config.eager_load_paths << Rails.root.join('app/api')
+
+    config.before_initialize do
+      ENV["BLAZER_USERNAME"] = Rails.application.credentials.dig(:basic_auth, :blazer_username)
+      ENV["BLAZER_PASSWORD"] = Rails.application.credentials.dig(:basic_auth, :blazer_password)
+    end
   end
 end
