@@ -1,0 +1,43 @@
+<div class="container">
+  <%= form_with(model: post, local: true, url: post.persisted? ? post_path(post) : posts_path, method: post.persisted? ? :patch : :post) do |form| %>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <% if post.errors.any? %>
+          <div class="alert alert-danger" role="alert">
+            <h2><%= pluralize(post.errors.count, 'error') %> prohibited this post from being saved:</h2>
+
+            <ul>
+              <% post.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="mb-3">
+          <%= form.label :user_id, class: 'form-label' %>
+          <%= form.collection_select :user_id, User.all, :id, :email, { include_blank: true }, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :title, class: 'form-label' %>
+          <%= form.text_field :title, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :body, class: 'form-label' %>
+          <%= form.text_area :body, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :status, class: 'form-label' %>
+          <%= form.select :status, Post.statuses.keys, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.submit post.persisted? ? 'Update' : 'Create', class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

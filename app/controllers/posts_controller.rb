@@ -1,57 +1,52 @@
 class PostsController < ApplicationController
+  before_action :set_post, only: %i[show edit update destroy]
+
   def index
     @posts = Post.all
   end
 
   def show
-    @post = Post.find_by_id(params[:id])
+    @post = Post.friendly.find(params[:id])
   end
 
   def new
     @post = Post.new
+    @post.save
   end
 
   def create
-    post = Post.new(params[:post])
-
-    if post.save
-      redirect_to posts_path
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to posts_path, notice: 'Post was successfully created.'
     else
       render :new
     end
   end
 
   def edit
-    @post = Post.find_by_id(params[:id])
-
-    if @post.nil?
-      redirect_to posts_path
-    end
+    @post = Post.friendly.find(params[:id])
   end
 
   def update
-    post = Post.find_by_id(params[:id])
-
-    if post.update_attributes(params[:post])
-      redirect_to posts_path
+    if @post.update(post_params)
+      redirect_to posts_path, notice: 'Post was successfully updated.'
     else
       render :edit
     end
   end
 
   def destroy
-    post = Post.find_by_id(params[:id])
-
-    if post.destroy
-      redirect_to posts_path, notice: "Post deleted"
-    else
-      redirect_to posts_path, notice: "Post could not be deleted"
-    end
+    @post.destroy
+    redirect_to posts_path, notice: 'Post was successfully destroyed.'
   end
 
   private
 
+  def set_post
+    @post = Post.friendly.find(params[:id])
+  end
+
   def post_params
-    params.require(:post).permit(:user_id, :title, :body, :status, :total_view)
+    params.require(:post).permit(:title, :body, :user_id, :status)
   end
 end
