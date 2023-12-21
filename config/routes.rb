@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   get '/docs', to: 'docs#index'
+  resources :posts
+  root 'posts#index'
 
   mount ApplicationAPI => '/api'
   mount Blazer::Engine => '/mio'
