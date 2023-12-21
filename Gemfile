@@ -64,6 +64,12 @@ gem 'rack-cors'
 
 gem 'friendly_id'
 
+gem 'haml-rails'
+
+gem 'html2haml'
+
+gem 'jquery-rails'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
