@@ -2,7 +2,11 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
-    @posts = Post.all
+    @posts = filter_posts
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
@@ -48,5 +52,13 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :body, :user_id, :status)
+  end
+
+  def filter_posts
+    if params[:status].present?
+      Post.where(status: params[:status])
+    else
+      Post.all
+    end
   end
 end

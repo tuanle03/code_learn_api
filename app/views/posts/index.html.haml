@@ -1,0 +1,16 @@
+.container.mt-5
+  %h1 Posts
+  = link_to 'New Post', new_post_path, class: 'btn btn-primary col-md-1 offset-md-11 mb-3'
+
+  %form.form-inline.mb-3.justify-content-end.offset-md-9
+    = form_tag posts_path, method: :get, class: 'form-inline ml-auto' do
+      .form-group.mr-2
+        %label{'for': 'status'} Status:
+        - options = content_tag(:option, 'All', value: '', selected: params[:status].blank?)
+        - options += options_for_select(Post.statuses.keys, params[:status])
+        %select.form-control{name: 'status', id: 'status', style: 'width: 150px;', onchange: 'this.form.submit();'}= options
+
+.container-fluid.col-md-9
+  .panel.panel-default
+    .panel-body
+      = render partial: 'posts_list', locals: { posts: @posts }
