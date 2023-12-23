@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html>
-
-  <head>
-    <title>Docs</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.1.1/swagger-ui.css">
-  </head>
-
-  <body>
-    <div id="ui-wrapper-new" data-spec="/api/web/doc.json">
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Docs
+    %link{:href => "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.1.1/swagger-ui.css", :rel => "stylesheet"}/
+  %body
+    #ui-wrapper-new{"data-spec" => "/api/web/doc.json"}
       Loading....
-    </div>
-  </body>
-  <script src="https://unpkg.com/swagger-ui-dist@5.1.1/swagger-ui-bundle.js"></script>
-  <script>
+  %script{:src => "https://unpkg.com/swagger-ui-dist@5.1.1/swagger-ui-bundle.js"}
+  :javascript
     var swaggerUIOptions = {
       url: '/api/web/doc.json',
       dom_id: '#ui-wrapper-new',
@@ -36,6 +32,3 @@
     var ui = SwaggerUIBundle(swaggerUIOptions)
 
     window.ui = ui
-  </script>
-
-</html>

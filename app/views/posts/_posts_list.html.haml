@@ -1,0 +1,19 @@
+%table.table.table-striped
+  %thead.text-bold
+    %tr
+      %th ID
+      %th Title
+      %th Body
+      %th Status
+      %th Action
+  %tbody
+    - @posts.newest.each do |post|
+      %tr
+        %td= post.id
+        %td= post.title
+        %td= post.body
+        %td= post.status
+        %td
+          = link_to 'Edit', edit_post_path(post), class: 'btn btn-warning btn-sm col-12'
+          = form_with(model: post, local: false, method: :delete, data: { confirm: 'Are you sure?' }) do |form|
+            = form.submit 'Destroy', class: 'btn btn-danger btn-sm col-12 mt-1'
