@@ -3,7 +3,7 @@ name: RuboCop
 on:
   push:
     branches:
-      - '*'
+      - main
 
 jobs:
   rubocop:
