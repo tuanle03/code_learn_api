@@ -72,6 +72,10 @@ gem 'jquery-rails'
 
 gem 'rubocop'
 
+gem 'chartkick'
+
+gem 'groupdate'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
