@@ -154,6 +154,8 @@ GEM
     grape_logging (1.8.4)
       grape
       rack
+    groupdate (6.4.0)
+      activesupport (>= 6.1)
     haml (6.3.0)
       temple (>= 0.8.2)
       thor
@@ -381,6 +383,7 @@ DEPENDENCIES
   bootsnap
   byebug
   capybara
+  chartkick
   debug
   devise
   devise-jwt
@@ -390,6 +393,7 @@ DEPENDENCIES
   grape
   grape-swagger
   grape_logging
+  groupdate
   haml-rails
   html2haml
   importmap-rails

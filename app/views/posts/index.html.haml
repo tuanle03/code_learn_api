@@ -1,5 +1,7 @@
 .container.mt-5
   %h1 Posts
+  = pie_chart Post.group(:status).count, library: { title: { text: 'Posts by status' } }
+  = line_chart Post.group(:id).sum(:total_view), library: { title: { text: 'Posts by total view' } }
   = link_to 'New Post', new_post_path, class: 'btn btn-primary col-md-1 offset-md-11 mb-3'
 
   %form.form-inline.mb-3.justify-content-end.offset-md-9
