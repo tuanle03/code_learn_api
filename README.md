@@ -41,7 +41,7 @@ Before you begin, ensure you have the following prerequisites installed:
    
 2. Install dependencies:
     ```bash
-   bundle install
+   bundle
    ```
 3. Set up the database:
    ```bash
@@ -49,7 +49,7 @@ Before you begin, ensure you have the following prerequisites installed:
    ```
 4. Start project
    ```bash
-   rails server
+   rails s
    ```
    
 ## JWT Authentication
