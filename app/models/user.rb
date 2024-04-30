@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::Allowlist
 
-  serialize :revoked_tokens, Array
+  serialize :revoked_tokens, type: Array
 
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :validatable,
