@@ -159,8 +159,8 @@ GEM
     grape_logging (1.8.4)
       grape
       rack
-    groupdate (6.4.0)
-      activesupport (>= 6.1)
+    groupdate (6.5.0)
+      activesupport (>= 7)
     haml (6.3.0)
       temple (>= 0.8.2)
       thor
@@ -175,7 +175,7 @@ GEM
       haml (>= 4.0)
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
-    i18n (1.14.5)
+    i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.1)
       actionpack (>= 6.0.0)
