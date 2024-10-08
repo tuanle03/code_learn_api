@@ -159,8 +159,8 @@ GEM
     grape_logging (1.8.4)
       grape
       rack
-    groupdate (6.4.0)
-      activesupport (>= 6.1)
+    groupdate (6.5.1)
+      activesupport (>= 7)
     haml (6.3.0)
       temple (>= 0.8.2)
       thor
