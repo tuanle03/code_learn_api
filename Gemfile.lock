@@ -153,7 +153,7 @@ GEM
       mustermann-grape (~> 1.1.0)
       rack (>= 2)
       zeitwerk
-    grape-swagger (2.1.0)
+    grape-swagger (2.1.1)
       grape (>= 1.7, < 3.0)
       rack-test (~> 2)
     grape_logging (1.8.4)
