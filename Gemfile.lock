@@ -237,7 +237,7 @@ GEM
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
-    puma (6.5.0)
+    puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (2.2.10)
@@ -407,7 +407,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   pg
-  puma (~> 6.5)
+  puma (~> 6.6)
   rack-cors
   rails (~> 7.0.8)
   redis (~> 5.3)
