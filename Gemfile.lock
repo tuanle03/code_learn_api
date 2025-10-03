@@ -68,8 +68,9 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
-    appsignal (3.7.5)
-      rack
+    appsignal (4.7.4)
+      logger
+      rack (>= 2.0.0)
     ast (2.4.3)
     base64 (0.2.0)
     bcrypt (3.1.20)
@@ -246,7 +247,7 @@ GEM
     puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (2.2.14)
+    rack (2.2.18)
     rack-cors (2.0.2)
       rack (>= 2.0.0)
     rack-test (2.2.0)
