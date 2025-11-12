@@ -10,7 +10,7 @@ gem 'rails', '~> 8.1.1'
 gem 'sprockets-rails'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.7'
+gem 'sqlite3', '>= 2.1'
 
 gem 'pg'
 

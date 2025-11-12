@@ -2,7 +2,7 @@ class Post < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  enum status: { approved: 'approved', pending: 'pending', rejected: 'rejected' }
+  enum :status, { approved: 'approved', pending: 'pending', rejected: 'rejected' }
 
   validates :title, presence: true
 
