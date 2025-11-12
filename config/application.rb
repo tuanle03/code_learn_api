@@ -10,6 +10,11 @@ module CodeLearnApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    
+    # Disable freezing of autoload_paths and eager_load_paths for Rails 8.1 compatibility
+    # with older gems that try to modify these arrays
+    config.autoloader = :zeitwerk
+    config.enable_reloading = false unless Rails.env.development?
 
     config.generators do |g|
       g.test_framework :rspec
@@ -22,7 +27,9 @@ module CodeLearnApi
     config.time_zone = 'Hanoi'
 
     # config.eager_load_paths << Rails.root.join("extras")
-    config.eager_load_paths << Rails.root.join('app/api')
+    # Add app/api to both autoload and eager load paths
+    config.autoload_paths += %W[#{config.root}/app/api]
+    config.eager_load_paths += %W[#{config.root}/app/api]
 
     config.before_initialize do
       ENV["BLAZER_USERNAME"] = Rails.application.credentials.dig(:basic_auth, :blazer_username)
