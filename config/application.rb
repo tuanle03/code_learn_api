@@ -10,7 +10,7 @@ module CodeLearnApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
-    
+
     # Disable freezing of autoload_paths and eager_load_paths for Rails 8.1 compatibility
     # with older gems that try to modify these arrays
     config.autoloader = :zeitwerk
