@@ -6,7 +6,7 @@ require "bootsnap/setup" # Speed up boot time by caching expensive operations.
 # Monkey patch Array to prevent freezing errors in Rails 8.1
 # This allows older gems to modify frozen autoload_paths arrays
 class Array
-  alias_method :original_freeze, :freeze
+  alias original_freeze freeze
 
   def freeze
     # Check if this array is being set as autoload_paths or eager_load_paths
