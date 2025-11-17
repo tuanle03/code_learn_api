@@ -77,8 +77,9 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
-    appsignal (3.7.5)
-      rack
+    appsignal (4.7.5)
+      logger
+      rack (>= 2.0.0)
     ast (2.4.3)
     base64 (0.2.0)
     bcrypt (3.1.20)
@@ -256,7 +257,7 @@ GEM
     puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (3.2.3)
+    rack (3.2.4)
     rack-cors (2.0.2)
       rack (>= 2.0.0)
     rack-session (2.1.1)
